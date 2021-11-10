@@ -15,6 +15,7 @@ async function run() {
         await client.connect();
         const sedanCollection = client.db("sedan_mela").collection("ourSedans");
         const testimonialCollection = client.db("sedan_mela").collection("testimonials");
+        const userCollection = client.db("sedan_mela").collection("users");
         app.get("/sedans", async (req, res) => {
             const sedans = await sedanCollection.find({}).toArray();
             res.json(sedans);
@@ -22,6 +23,18 @@ async function run() {
         app.get("/testimonials", async (req, res) => {
             const testimonials = await testimonialCollection.find({}).toArray();
             res.json(testimonials);
+        })
+        app.post("/users", async (req, res) => {
+
+            const newUser = await userCollection.insertOne(req.body);
+            res.json(newUser);
+        })
+        app.put("/users", async (req, res) => {
+            const filter = { email: req.body.email };
+            const options = { upsert: true }
+            const user = { $set: req.body };
+            const result = await userCollection.updateOne(filter, user, options);
+            res.json(result);
         })
     }
     finally {
