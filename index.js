@@ -56,6 +56,10 @@ async function run() {
             const result = await purchasedSedanCollection.insertOne(body);
             res.json(result);
         })
+        app.post("/testimonials", async (req, res) => {
+            const testimonial = await testimonialCollection.insertOne(req.body);
+            res.json(testimonial);
+        })
     }
     finally {
 
