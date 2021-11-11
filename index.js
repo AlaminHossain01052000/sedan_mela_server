@@ -115,6 +115,12 @@ async function run() {
             const deletedOrder = await purchasedSedanCollection.deleteOne(query);
             res.json(deletedOrder);
         })
+        app.delete("/sedans/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const deletedSedan = await sedanCollection.deleteOne(query);
+            res.json(deletedSedan);
+        })
     }
     finally {
 
