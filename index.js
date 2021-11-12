@@ -50,7 +50,7 @@ async function run() {
             res.json(allUsers);
         })
         app.get("/users/single", async (req, res) => {
-            console.log(req.query.email);
+
             const particularUser = await userCollection.findOne({ email: req.query.email });
             res.json(particularUser);
         })
@@ -102,7 +102,7 @@ async function run() {
         })
         app.put("/purchasedSedan/All/:id", async (req, res) => {
             const id = req.params.id;
-            console.log(id);
+
             const query = { _id: ObjectId(id) };
             const updateDoc = { $set: { status: "shipped" } };
             const options = { upsert: false };
@@ -129,7 +129,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-    console.log("backend is working fine")
+
     res.json("Backend is working");
 })
 app.listen(port, () => {
