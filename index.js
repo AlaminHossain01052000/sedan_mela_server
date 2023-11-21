@@ -12,7 +12,12 @@ app.use(express.json());
 
 // connecting node js with mongodb
 const uri = `mongodb+srv://sedanMela:yOovhds1Bqmo8rUz@cluster0.li11u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    connectTimeoutMS: 30000, // Adjust the timeout values as needed
+    socketTimeoutMS: 30000,
+  });
 async function run() {
     try {
         await client.connect();
